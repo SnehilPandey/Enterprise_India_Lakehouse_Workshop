@@ -63,11 +63,7 @@
 
 # COMMAND ----------
 
-dbutils.fs.ls('/mnt/databricks-datasets-private/')
-
-# COMMAND ----------
-
-train = spark.read.parquet("/mnt/databricks-datasets-private/ML/cust_lifetime_value/train").cache()
+train = spark.read.table("customer.online_retail_train").cache()
 train.createOrReplaceTempView("train")
 
 # COMMAND ----------
@@ -153,7 +149,7 @@ from lifetimes import BetaGeoFitter, GammaGammaFitter
 
 # COMMAND ----------
 
-summaryDF = spark.read.parquet('/mnt/databricks-datasets-private/ML/cust_lifetime_value/Summary_2011')
+summaryDF = spark.read.parquet('dbfs:/user/hive/warehouse/customer.db/summary_2011')
 
 # COMMAND ----------
 
@@ -488,40 +484,15 @@ def CLV_CustomerGroup(df):
   df['PROB_ALIVE'] =1
   df['PROB_ALIVE_t']=1
 
-  return df[['GroupKey','CustomerID','FREQUENCY','RECENCY','AGE','AVG_MONETARY_VALUE','PRED_VISITS','PROB_ALIVE','PROB_ALIVE_t','PRED_CLV']]
+  return df[['CustomerID','FREQUENCY','RECENCY','AGE','AVG_MONETARY_VALUE','PRED_VISITS','PROB_ALIVE','PROB_ALIVE_t','PRED_CLV']]
 
 # COMMAND ----------
 
-# MAGIC %md Test on the driver for a given value for groupkey, note resultsDF is a spark dataframe
-
-# COMMAND ----------
-
-summaryDF = spark.read.parquet('/mnt/databricks-datasets-private/ML/cust_lifetime_value/Summary_Group_2011')
-#summaryDF.recency.cast("float")
-#summaryDF.T.cast("float")
-#summaryDF=summaryDF.repartition(1)
-# This will return a new DF with all the columns + id
-summaryDF = summaryDF.withColumn("RECENCY", summaryDF.recency1.cast("float"))
-summaryDF = summaryDF.withColumn("AGE", summaryDF.T1.cast("float"))
-summaryDF = summaryDF.withColumn("ID", monotonically_increasing_id()+1)
-summaryDF = summaryDF.withColumn("AVG_MONETARY_VALUE", summaryDF.profit.cast("float")) 
-summaryDF = summaryDF.drop("profit", "T1", "recency1")
-display(summaryDF)
-
-# COMMAND ----------
-
-# test on the driver 
 t = 52.08 # 365 days
 time = 12.0
-sample = summaryDF.where("GroupKey=1").toPandas().set_index("ID")
+sample = summaryDF.toPandas()
 
 resultsDF = CLV_CustomerGroup.func(sample)
-display(resultsDF)
-
-# COMMAND ----------
-
-# salesDF=spark.read.table('retail_salesvw')
-resultsDF = summaryDF.groupby("GroupKey").apply(CLV_CustomerGroup)
 display(resultsDF)
 
 # COMMAND ----------
