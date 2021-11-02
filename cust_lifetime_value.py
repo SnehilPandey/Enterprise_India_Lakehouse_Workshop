@@ -1,33 +1,4 @@
 # Databricks notebook source
-# MAGIC %md ---
-# MAGIC title: Customer Lifetime Value Forecasting
-# MAGIC authors:
-# MAGIC - Bilal Obeidat
-# MAGIC tags:
-# MAGIC - python
-# MAGIC - sql
-# MAGIC - machine-learning
-# MAGIC - pandas
-# MAGIC - lifetimes
-# MAGIC - clv
-# MAGIC - customer-lifetime-value
-# MAGIC - e-commerce
-# MAGIC - retail
-# MAGIC - bg-nbd
-# MAGIC - gamma-gamma
-# MAGIC created_at: 2020-03-23
-# MAGIC updated_at: 2020-03-23
-# MAGIC tldr: Demonstrates predicting customer lifetime value using lifetimes in Python, using an e-commerce transaction data set.
-# MAGIC ---
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC # Notebook Links
-# MAGIC - AWS demo.cloud: [https://demo.cloud.databricks.com/#notebook/8168320](https://demo.cloud.databricks.com/#notebook/8168320)
-
-# COMMAND ----------
-
 # MAGIC %pip install lifetimes
 
 # COMMAND ----------
@@ -102,7 +73,7 @@ train.createOrReplaceTempView("train")
 # COMMAND ----------
 
 # MAGIC %sql 
-# MAGIC SELECT * FROM train
+# MAGIC DESCRIBE train
 
 # COMMAND ----------
 
