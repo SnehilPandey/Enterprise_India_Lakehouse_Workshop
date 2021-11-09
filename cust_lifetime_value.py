@@ -63,7 +63,7 @@
 
 # COMMAND ----------
 
-train = spark.read.table("customer.online_retail_train").cache()
+train = spark.read.table("customer_info.online_retail_train").cache()
 train.createOrReplaceTempView("train")
 
 # COMMAND ----------
