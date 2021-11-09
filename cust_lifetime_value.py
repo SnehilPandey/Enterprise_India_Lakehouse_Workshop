@@ -349,6 +349,13 @@ df_ltv_results.printSchema()
 # COMMAND ----------
 
 # MAGIC %sql
+# MAGIC DROP TABLE IF EXISTS customer.ltv_results;
+# MAGIC CREATE TABLE customer.ltv_results AS
+# MAGIC SELECT * FROM LTVdata;
+
+# COMMAND ----------
+
+# MAGIC %sql
 # MAGIC SELECT customerID, Frequency, Recency, AGE
 # MAGIC FROM LTVdata 
 # MAGIC ORDER BY PRED_CLV DESC
