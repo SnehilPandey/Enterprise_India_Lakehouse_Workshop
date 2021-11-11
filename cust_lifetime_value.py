@@ -3,6 +3,14 @@
 
 # COMMAND ----------
 
+print(a)
+
+# COMMAND ----------
+
+
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC # Customer Lifetime Value Forcasting
 # MAGIC 
