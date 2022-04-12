@@ -25,26 +25,26 @@ display(df)
 # COMMAND ----------
 
 
-permanent_table_name = "customer_info.online_retail_train"
+permanent_table_name = "customer_info_backup.online_retail_train"
 df.write.format("delta").saveAsTable(permanent_table_name)
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC SELECT * FROM customer_info.online_retail_train
+# MAGIC SELECT * FROM customer_info_backup.online_retail_train
 
 # COMMAND ----------
 
 # MAGIC %sql
 # MAGIC SELECT SUM(profit_value) AS profit_value,country 
-# MAGIC FROM customer_info.online_retail_train
+# MAGIC FROM customer_info_backup.online_retail_train
 # MAGIC GROUP BY country
 # MAGIC ORDER BY profit_value DESC
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC SELECT DISTINCT Description,StockCode FROM customer_info.online_retail_train
+# MAGIC SELECT DISTINCT Description,StockCode FROM customer_info_backup.online_retail_train
 
 # COMMAND ----------
 
@@ -72,14 +72,14 @@ display(df)
 
 # COMMAND ----------
 
-permanent_table_name = "customer_info.Summary_2011"
+permanent_table_name = "customer_info_backup.Summary_2011"
 
 df.write.format("delta").saveAsTable(permanent_table_name)
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC SELECT * FROM customer_info.Summary_2011
+# MAGIC SELECT * FROM customer_info_backup.Summary_2011
 
 # COMMAND ----------
 

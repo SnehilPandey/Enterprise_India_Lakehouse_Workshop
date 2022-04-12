@@ -10,7 +10,7 @@
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC SELECT COUNT(DISTINCT CustomerID) AS Customers FROM customer.online_retail_train
+# MAGIC SELECT COUNT(DISTINCT CustomerID) AS Customers FROM customer_info_backup.online_retail_train
 
 # COMMAND ----------
 
@@ -20,7 +20,7 @@
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC SELECT year(invdate), COUNT(DISTINCT CustomerID) AS Customers FROM customer.online_retail_train GROUP BY year(invdate) -- Parameterize the year(invdate)
+# MAGIC SELECT year(invdate), COUNT(DISTINCT CustomerID) AS Customers FROM customer_info_backup.online_retail_train GROUP BY year(invdate) -- Parameterize the year(invdate)
 
 # COMMAND ----------
 
@@ -35,7 +35,7 @@
 # MAGIC        COUNT(DISTINCT CustomerID) AS Customers,
 # MAGIC        COUNT(invoiceno) AS invoices,
 # MAGIC        SUM(profit_value) profit
-# MAGIC FROM customer.online_retail_train
+# MAGIC FROM customer_info_backup.online_retail_train
 # MAGIC WHERE year(invdate) = 2011 -- parameterize it on Query Window
 # MAGIC GROUP BY month(invDate),year(invdate)
 # MAGIC ORDER BY --year(invdate),
@@ -51,7 +51,7 @@
 # MAGIC %sql
 # MAGIC SELECT country,
 # MAGIC        COUNT(DISTINCT CustomerID) as Customers
-# MAGIC FROM customer.online_retail_train
+# MAGIC FROM customer_info_backup.online_retail_train
 # MAGIC WHERE year(invdate) = 2011
 # MAGIC GROUP BY country
 # MAGIC ORDER BY count(DISTINCT CustomerID) DESC
@@ -73,7 +73,7 @@
 # MAGIC               WHEN pred_visits >= 10 AND pred_visits <= 19 THEN '10 - 19 weeks'
 # MAGIC          ELSE 'others'
 # MAGIC          END AS pred_visit, PRED_CLV
-# MAGIC   FROM customer.ltv_results
+# MAGIC   FROM customer_info_backup.ltv_results
 # MAGIC )
 # MAGIC GROUP BY pred_visit
 
@@ -89,7 +89,7 @@
 # MAGIC               WHEN Age >= 10 AND Age <= 19 THEN '10 - 19 days'
 # MAGIC          ELSE 'others'
 # MAGIC          END AS age
-# MAGIC   FROM customer.ltv_results
+# MAGIC   FROM customer_info_backup.ltv_results
 # MAGIC )
 # MAGIC GROUP BY age
 
