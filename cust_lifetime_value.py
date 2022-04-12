@@ -63,7 +63,7 @@
 
 # COMMAND ----------
 
-train = spark.read.table("customer_info.online_retail_train").cache()
+train = spark.read.table("customer_info_backup.online_retail_train").cache()
 train.createOrReplaceTempView("train")
 
 # COMMAND ----------
@@ -149,7 +149,7 @@ from lifetimes import BetaGeoFitter, GammaGammaFitter
 
 # COMMAND ----------
 
-summaryDF = spark.read.parquet('dbfs:/user/hive/warehouse/customer.db/summary_2011')
+summaryDF = spark.read.table("customer_info_backup.summary_2011").cache()
 
 # COMMAND ----------
 
@@ -349,8 +349,8 @@ df_ltv_results.printSchema()
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC DROP TABLE IF EXISTS customer.ltv_results;
-# MAGIC CREATE TABLE customer.ltv_results AS
+# MAGIC DROP TABLE IF EXISTS customer_info_backup.ltv_results;
+# MAGIC CREATE TABLE customer_info_backup.ltv_results AS
 # MAGIC SELECT * FROM LTVdata;
 
 # COMMAND ----------
